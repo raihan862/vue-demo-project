@@ -14,7 +14,7 @@
           <p>Available item: {{ product.stock }}</p>
           <p>Quantity: {{ product.quantity }}</p>
           <div>
-            <Button><font-awesome-icon icon=""/></Button>
+            <Button> </Button>
           </div>
           <!-- <p v-show="isInCart" class="fade">All Ready in Cart</p> -->
           <button @click="checkCart(product)">Remove Item</button>
