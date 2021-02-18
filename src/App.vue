@@ -1,6 +1,8 @@
 <template>
-  <Header />
-  <router-view> </router-view>
+  <div class="main">
+    <Header />
+    <router-view> </router-view>
+  </div>
 </template>
 <script>
 import Header from "./components/Header/Header";
@@ -13,6 +15,9 @@ export default {
   },
   setup() {
     const cartData = ref([]);
+    const searchText = ref("");
+    provide("searchText", searchText);
+
     const getData = () => {
       cartData.value = getCart();
     };

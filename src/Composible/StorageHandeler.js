@@ -18,7 +18,6 @@ export const CheckInCart = (key) => {
   const cart = getCart();
   if (cart.length) {
     let a = cart.filter((dt) => dt.key == key);
-
     if (a.length) {
       return true;
     } else {
@@ -27,4 +26,8 @@ export const CheckInCart = (key) => {
   } else {
     return false;
   }
+};
+
+export const removeFormCart = (items) => {
+  sessionStorage.setItem("cart", JSON.stringify(items));
 };

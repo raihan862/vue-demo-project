@@ -13,8 +13,8 @@
           <p>Price: {{ product.price }}</p>
           <p>Available item: {{ product.stock }}</p>
           <p v-show="isInCart" class="fade">All Ready in Cart</p>
-          <button @click="checkCart(product)">
-            Add To Card
+          <button @click="checkCart(product)" class="btnStyle2">
+            <i class="fa fa-cart-plus " id="icon"></i> Add To Card
           </button>
         </div>
         <div class="right">
@@ -53,7 +53,7 @@ export default {
   },
   setup() {
     // const avaiable = ref(true);
-    // console.log(props.product[0].stock);
+
     const cartData = inject("cartData");
     let isInCart = ref(false);
 
@@ -81,11 +81,16 @@ export default {
   padding: 10px;
   justify-content: space-between;
   text-align: left;
-  border-bottom: 1px solid #999;
+  border-bottom: 2px solid rgba(5, 5, 5, 0.07);
 }
 .fade {
   transition: 0.3s;
   color: red;
+}
+#icon {
+  font-size: 20px;
+  color: white;
+  padding: 5px;
 }
 .img-div {
   flex: 0.4;
@@ -113,5 +118,20 @@ export default {
 .right ul li {
   color: gray;
   font-size: 12px;
+}
+.btnStyle2 {
+  background: linear-gradient(rgba(231, 218, 39), rgb(126, 118, 5));
+  color: aliceblue;
+  margin-top: 15px;
+  border: none;
+  padding: 3px 10px;
+  border-radius: 10px;
+  outline: none;
+}
+button {
+  cursor: pointer;
+}
+button:focus {
+  outline: none !important;
 }
 </style>

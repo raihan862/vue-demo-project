@@ -26,8 +26,16 @@
         <p>{{ total }}</p>
       </div>
     </div>
-    <div class="bottom">
-      <router-link to="/cart-review">Review Cart</router-link>
+
+    <div v-if="from == 'home'" class="bottom">
+      <router-link to="/cart-review" class="link-button"
+        >Review Cart</router-link
+      >
+    </div>
+    <div v-if="from == 'review'" class="bottom">
+      <router-link to="/place-order" class="link-button"
+        >Place Order</router-link
+      >
     </div>
   </div>
 </template>
@@ -37,6 +45,7 @@ import { computed, inject } from "vue";
 // import { getCart } from "../../Composible/StorageHandeler";
 export default {
   name: "Cart",
+  props: ["from"],
   setup() {
     const cartData = inject("cartData");
     let itemPrice = computed(() => {
@@ -54,7 +63,7 @@ export default {
 
     const tax = computed(() => ((itemPrice.value + shipping.value) * 5) / 100);
     const total = computed(() => itemPrice.value + shipping.value + tax.value);
-    //console.log(typeof itemPrice.value);
+
     return { cartData, itemPrice, shipping, tax, total };
   },
 };
@@ -65,12 +74,16 @@ export default {
   text-align: center;
   width: 100%;
 }
+.bottom {
+  padding-top: 10px;
+}
 .item {
   width: 60%;
   margin: auto;
   display: flex;
   padding: 3px;
 }
+
 .item p {
   margin: 0px;
   padding: 5px;
@@ -81,6 +94,19 @@ export default {
 .item:last-child {
   font-weight: bold;
   padding: 15px 0px;
+}
+.link-button {
+  text-decoration: none;
+  background: linear-gradient(rgba(231, 218, 39), rgb(126, 118, 5));
+  color: aliceblue !important;
+  margin-top: 15px;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 10px;
+  outline: none;
+}
+h4 {
+  margin: 0px;
 }
 .item p:nth-child(1) {
   text-align: left;

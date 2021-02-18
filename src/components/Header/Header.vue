@@ -28,11 +28,20 @@
           </div>
         </div>
         <div>
-          <button class="btnStyle">Login</button>
+          <div class="right-side">
+            <p>{{ user.name }}</p>
+
+            <router-link to="/login" v-if="!user.name" class="noStyle"
+              >Login</router-link
+            >
+            <router-link to="/" class="noStyle" v-else @click="handleLogout"
+              >LogOut</router-link
+            >
+          </div>
         </div>
       </nav>
       <div class="serachBar">
-        <input type="text" name="" id="searchInput" />
+        <input type="text" id="searchInput" v-model="searchText" />
         <button class="btnStyle">Search</button>
       </div>
     </div>
@@ -40,8 +49,22 @@
 </template>
 
 <script>
+import { computed, inject } from "vue";
+import { useStore } from "vuex";
 export default {
   name: "Header",
+  setup() {
+    const store = useStore();
+    const searchText = inject("searchText");
+    const updateProducts = inject("updateProducts");
+
+    const user = computed(() => store.state.users.user);
+    const handleLogout = () => {
+      store.dispatch("setUser", { name: "", email: "", token: "" });
+      localStorage.setItem("token", "");
+    };
+    return { user, handleLogout, searchText, updateProducts };
+  },
 };
 </script>
 
@@ -51,13 +74,8 @@ export default {
   background-color: #444;
   width: 100%;
 }
-.logoContainer {
-  position: relative;
-}
+
 #searchInput {
-  position: fixed;
-  position: sticky;
-  top: 0;
   width: 40%;
   padding: 9px;
   border-radius: 10px;
@@ -66,9 +84,23 @@ export default {
   outline: none;
   font-size: 16px;
 }
-.stickyBar {
-  position: sticky;
-  top: 0;
+.noStyle {
+  background: transparent;
+  border: none;
+  color: crimson;
+  font-size: 18px;
+  font-weight: 600;
+  text-decoration: none;
+}
+.noStyle:hover {
+  color: brown;
+}
+.right-side {
+  display: flex;
+  align-items: center;
+}
+.right-side p {
+  padding-right: 20px;
 }
 .nabbar {
   display: flex;
