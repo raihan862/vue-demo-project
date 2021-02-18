@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { inject, onMounted, provide, ref } from "vue";
+import { onMounted, ref } from "vue";
 import fakeData from "../fakeData/index";
 import Product from "../components/HomeComponent/Product";
 import Cart from "../components/HomeComponent/Cart";
@@ -24,21 +24,13 @@ export default {
   },
   setup() {
     const products = ref([]);
-    const fakeProducts = ref([]);
-    const searchText = inject("searchText");
+
     const getData = async () => {
       const filterData = await fakeData.slice(0, 20);
       products.value = filterData;
     };
     onMounted(getData);
-    const updateProducts = () => {
-      console.log("come");
-      fakeProducts.value = products.value.filter((item) =>
-        item.name.toUpperCase().match(searchText.value.toUpperCase)
-      );
-    };
 
-    provide("updateProducts", updateProducts);
     return { products };
   },
 };

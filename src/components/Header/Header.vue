@@ -41,7 +41,7 @@
         </div>
       </nav>
       <div class="serachBar">
-        <input type="text" id="searchInput" v-model="searchText" />
+        <input type="text" id="searchInput" />
         <button class="btnStyle">Search</button>
       </div>
     </div>
@@ -49,21 +49,18 @@
 </template>
 
 <script>
-import { computed, inject } from "vue";
+import { computed } from "vue";
 import { useStore } from "vuex";
 export default {
   name: "Header",
   setup() {
     const store = useStore();
-    const searchText = inject("searchText");
-    const updateProducts = inject("updateProducts");
-
     const user = computed(() => store.state.users.user);
     const handleLogout = () => {
       store.dispatch("setUser", { name: "", email: "", token: "" });
       localStorage.setItem("token", "");
     };
-    return { user, handleLogout, searchText, updateProducts };
+    return { user, handleLogout };
   },
 };
 </script>
